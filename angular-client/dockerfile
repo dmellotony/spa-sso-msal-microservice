@@ -1,0 +1,24 @@
+ARG DOCKERHUB_USERNAME
+ARG DOCKERHUB_TOKEN
+
+# Stage 1: Build the Angular app
+FROM node:20-alpine AS build
+#1 Set working directory
+WORKDIR /app
+RUN chown node:node /app
+#2 Switch to the node user
+USER node
+#3 copy files with explicit ownership
+COPY --chown=node:node package*.json ./
+RUN npm install
+COPY --chown=node:node . .
+RUN npm run build --configuration=production
+
+# Stage 2: Serve the app with Nginx
+FROM nginx:alpine
+# Copy the build output from the first stage. 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/angular-client/browser /usr/share/nginx/html
+COPY src/assets/config.template.js /usr/share/nginx/html/assets/config.template.js
+
+CMD ["/bin/sh", "-c", "envsubst < /usr/share/nginx/html/assets/config.template.js > /usr/share/nginx/html/assets/config.js && nginx -g 'daemon off;'"]

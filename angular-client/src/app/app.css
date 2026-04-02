@@ -1,0 +1,32 @@
+.container {
+  max-width: 640px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.error {
+  color: #b00020;
+}
