@@ -27,7 +27,7 @@ public class SecurityConfig {
     private String issuerUri;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.audience}")
-    private String aud;
+    private String audience;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     private String jwkSetUri;
@@ -75,7 +75,7 @@ public class SecurityConfig {
 
         OAuth2TokenValidator<Jwt> audienceValidator = new JwtClaimValidator<List<String>>(
                 "aud",
-                aud -> aud.contains(aud));
+                aud -> aud.contains(audience));
 
         OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(issuerValidator, audienceValidator);
 
