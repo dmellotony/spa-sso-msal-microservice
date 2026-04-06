@@ -13,6 +13,6 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://sts.windows.net/41a3b217-fb11-44b6-bd1a-b68522a22670/
-          audience: api://84725b2a-bbfc-47fc-90d4-1c55eb7755d5
-          jwkSetUri: https://login.microsoftonline.com/41a3b217-fb11-44b6-bd1a-b68522a22670/discovery/v2.0/keys
+          issuer-uri: ${JWT_ISSUER_URI}
+          audience: ${JWT_AUDIENCE}
+          jwkSetUri: ${JWT_JWK_SET_URI}

@@ -153,7 +153,7 @@ npm install @azure/msal-browser @azure/msal-angular
 
 ### 3.1 Add environment settings
 
-Create or update `src/environments/environment.ts`:
+update the <PLACEHOLDER> values in the `src/environments/environment.<environment>.ts` files
 
 ```ts
 export const environment = {
@@ -248,16 +248,23 @@ Add the resource server dependencies.
 </dependencies>
 ```
 
-#### Gradle
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-implementation 'org.springframework.boot:spring-boot-starter-security'
-```
-
 ### 4.2 Configure application properties
 
-`src/main/resources/application.yml`
+Update the <PLACEHOLDER> values in the `src/main/resources/application.yml` file. 
+Alternatively you can create environment variables and have spring read those.
+e.g 
+  issuer-uri: ${JWT_ISSUER_URI}
+  audience: ${JWT_AUDIENCE}
+  jwkSetUri: ${JWT_JWK_SET_URI}
+
+On local create environment variable as below
+export JWT_ISSUER_URI=https://sts.windows.net/<TENANT_ID>/
+
+On Cloud on the container app 
+Go to Container <User-service>->Containers
+Open the Environment variables tab
+Click on Add to add environment variable with Name - JWT_ISSUER_URI & value - https://sts.windows.net/<TENANT_ID>/
+This change is only required once.
 
 ```yaml
 server:
@@ -275,9 +282,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://sts.windows.net/<TENANT_ID>/
-          audience: api://<API_CLIENT_ID>
-          jwkSetUri: https://login.microsoftonline.com/<TENANT_ID>/discovery/v2.0/keys
+          issuer-uri: ${JWT_ISSUER_URI}
+          audience: ${JWT_AUDIENCE}
+          jwkSetUri: ${JWT_JWK_SET_URI}
 ```
 
 If your tenant or policy requires a different issuer format, use the issuer published by the OpenID configuration endpoint for your tenant.
