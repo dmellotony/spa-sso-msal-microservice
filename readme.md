@@ -254,16 +254,17 @@ Update the <PLACEHOLDER> values in the `src/main/resources/application.yml` file
 Alternatively you can create environment variables and have spring read those.
 e.g 
   issuer-uri: ${JWT_ISSUER_URI}
-  audience: ${JWT_AUDIENCE}
-  jwkSetUri: ${JWT_JWK_SET_URI}
 
 On local create environment variable as below
+```sh
 export JWT_ISSUER_URI=https://sts.windows.net/<TENANT_ID>/
+```
 
 On Cloud on the container app 
 Go to Container <User-service>->Containers
 Open the Environment variables tab
 Click on Add to add environment variable with Name - JWT_ISSUER_URI & value - https://sts.windows.net/<TENANT_ID>/
+
 This change is only required once.
 
 ```yaml
@@ -283,8 +284,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${JWT_ISSUER_URI}
-          audience: ${JWT_AUDIENCE}
-          jwkSetUri: ${JWT_JWK_SET_URI}
 ```
 
 If your tenant or policy requires a different issuer format, use the issuer published by the OpenID configuration endpoint for your tenant.
